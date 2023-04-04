@@ -1,0 +1,166 @@
+<div class="list row">
+  <div class="col-md-12">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="BUSCA UN ARTÍCULO..."
+        [(ngModel)]="filtro"
+        (input)="searchFiltro()"
+        (keyup.enter) = "searchFiltro()"
+      />
+      <div id="opciones">
+        <div class="opcion-wrapper text-center" id="nombre-wrapper" (click)="cambiar_filtro(0)">
+          <button type="button" class="btn btn-outline-secondary opcion " id = "nombre-button">NOMBRE</button>
+        </div>
+        <div class="opcion-wrapper text-center" id ="id-wrapper" (click)="cambiar_filtro(1)">
+          <button type="button" class="btn btn-outline-secondary opcion " id ="id-button">ID</button>
+        </div>
+      </div>
+      
+    </div>
+    <div id="info-filtros" *ngIf="seleccionado == 0">
+      <div id="filtro-color-wrapper" class="filtros">
+        <div id="color-wrapper">
+          <label for="color">COLOR</label>
+          <input
+            class="color-control"
+            id="color"
+            required
+            [(ngModel)]="color"
+            name="color"
+            (input)="searchFiltro()"
+          />
+        </div>
+        <div class="opcion-wrapper text-center" id ="activar-color" (click)="activar_filtro('color')">
+          <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button" id ="activar_color_button">COLOR</button>
+        </div>
+      </div>
+      <div id="filtro-precio-wrapper" class="filtros">
+        <div id="precio-input-wrapper">
+          <div class="precio-wrapper">
+            <label for="precio">DESDE</label>
+            <input
+              class="precio-control"
+              id="precio_desde"
+              required
+              [(ngModel)]="filtro_precio_desde"
+              name="precio"
+              (input)="searchFiltro()"
+            />
+          </div>
+          <div class="precio-wrapper">
+            <label for="precio">HASTA</label>
+            <input
+              class="precio-control"
+              id="precio_hasta"
+              required
+              [(ngModel)]="filtro_precio_hasta"
+              name="precio"
+              (input)="searchFiltro()"
+            />
+          </div>
+        </div>
+        <div class="opcion-wrapper text-center" id ="activar-precio" (click)="activar_filtro('precio')">
+          <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button" id ="activar_precio_button">PRECIO</button>
+        </div>
+      </div>
+      <div id="filtro-talla-wrapper" class="filtros">
+        <div id="seleccionar_tallas">
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('XS')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_xs">XS</button>
+          </div>
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('S')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_s">S</button>
+          </div>
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('M')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_m">M</button>
+          </div>
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('L')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_l">L</button>
+          </div>
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('XL')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_xl">XL</button>
+          </div>
+          <div class="opcion-wrapper text-center talla" id ="activar-talla" (click)="activar_talla('XXL')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button tallas_button" id ="seleccionar_talla_xxl">XXL</button>
+          </div>
+        </div>
+        <div class="opcion-wrapper text-center" id ="activar-talla" (click)="activar_filtro('talla')">
+          <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button" id ="activar_talla_button">TALLA</button>
+        </div>
+      </div>
+
+      <div id="filtro-cantidad-wrapper" class="filtros">
+        <div id="cantidad-input-wrapper">
+          <div class="cantidad-wrapper">
+            <label for="cantidad">CANTIDAD</label>
+            <input
+              class="cantidad-control"
+              id="cantidad"
+              required
+              [(ngModel)]="cantidad"
+              name="cantidad"
+              (input)="searchFiltro()"
+            />
+          </div>
+          <div class="cantidad-wrapper">
+            <select name="criterio_cantidad" id="dropdown" [(ngModel)]="criterio_cantidad" (click)="searchFiltro()">
+              <option value=">" selected>MAYOR A</option>
+              <option value="<">MENOR A</option>
+              <option value="=">IGUAL A</option>
+          </select>
+          </div>
+        </div>
+          <div class="opcion-wrapper text-center" id ="activar-cantidad" (click)="activar_filtro('cantidad')">
+            <button type="button" class="btn btn-outline-secondary opcion activar_filtro_button" id ="activar_cantidad_button">CANTIDAD</button>
+          </div>  
+      </div>
+    </div>
+
+    <div *ngIf="articulos" class = "input-group resultados">
+      {{articulos.length}} RESULTADOS
+    </div>
+  </div>
+  <div class="col-md-12 articulos-wrapper">
+    <ul class="list-group-horizontal-sm">
+      <div class="articulos">
+        <div 
+          class="articulo"
+          *ngFor="let articulo of articulos; let i = index;">
+          <li
+            class="list-group-item articulos_list"
+            [class.active]="i == currentIndex"
+          >
+            <div class="articulo-wrapper">
+              <a
+                class="imagen_a"
+                routerLink="{{articulo._id}}"
+                >
+                <div class="articulo-imagen">
+                  <img 
+                    #imagen{{indexOfelement}}
+                    *ngIf = "articulo.imagenes"
+                    src="http://localhost:8080/../../imagenes/{{articulo.imagenes[0]}}" 
+                    class="img-reponsive preview"/>
+                </div>
+              </a>
+              <div class="articulo-informacion">
+                <div id="nombre">
+                  {{ articulo.nombre }}
+                </div>
+                <div id="precio" *ngIf="articulo.precio! >= 0">
+                  {{ articulo.precio }} EUR
+                </div>
+                <div id="_id">
+                    {{articulo._id}}
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <footer></footer>
+</div>

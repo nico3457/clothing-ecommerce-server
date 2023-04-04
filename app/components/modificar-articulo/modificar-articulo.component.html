@@ -1,0 +1,90 @@
+
+<div class="submit-form">
+    <div *ngIf="!submitted" class ="form-wrapper">
+      <div class="form-group">
+        <label for="nombre">NOMBRE</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          required
+          [(ngModel)]="articulos.nombre"
+          name="nombre"
+          value= {{articulos.nombre}}
+        />
+      </div>
+      <div class="form-group">
+        <label for="descripcion">DESCRIPCION</label>
+        <textarea
+          class="form-control"
+          id="descripcion"
+          required
+          [(ngModel)]="articulos.descripcion"
+          name="descripcion"
+          value= {{articulos.descripcion}}
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="color">COLOR</label>
+        <input
+          class="form-control"
+          id="color"
+          required
+          [(ngModel)]="articulos.color"
+          name="color"
+          value= {{articulos.color}}
+        />
+        </div>
+      <div class="form-group">
+        <label for="precio">PRECIO</label>
+        <input
+          class="form-control"
+          id="precio"
+          required
+          [(ngModel)]="articulos.precio"
+          name="precio"
+          value= {{articulos.precio}}
+        />
+      </div>
+      <div class="form-group" *ngIf="articulos.tallas">
+        <label for="tallas">TALLAS</label><br>
+        <input type="checkbox" id="XS" class="tallas" name="tallas" value="XS" [checked]="articulos.tallas.includes('XS')">XS
+        <input type="checkbox" id="S" class="tallas" name="tallas" value="S" [checked]="articulos.tallas.includes('S')">S
+        <input type="checkbox" id="M" class="tallas" name="tallas" value="M" [checked]="articulos.tallas.includes('M')">M
+        <input type="checkbox" id="L" class="tallas" name="tallas" value="L" [checked]="articulos.tallas.includes('L')">L
+        <input type="checkbox" id="XL" class="tallas" name="tallas" value="XL" [checked]="articulos.tallas.includes('XL')">XL
+        <input type="checkbox" id="XXL" class="tallas" name="tallas" value="XXL" [checked]="articulos.tallas.includes('XXL')">XXL
+      </div>
+      <div class="form-group">
+        <label for="cantidad">CANTIDAD</label>
+        <input
+          class="form-control"
+          id="cantidad"
+          required
+          [(ngModel)]="articulos.cantidad"
+          name="cantidad"
+          value= {{articulos.cantidad}}
+        />
+      </div>
+      <div class="button-wrapper text-center">
+        <button (click)="updateArticulo()" class="btn btn-secondary">MODIFICAR</button>
+      </div>
+    </div>
+  
+    <div id="mensaje-borrar">
+      <div id ="mensaje_confirmacion_wrapper">
+        <a routerLink="../../">
+          <div id="close-tab">
+            <div id="close"></div>
+          </div>
+        </a>
+        <div id="mensaje-wrapper">
+          ARTICULO MODIFICADO SATISFACTORIAMENTE
+        </div>
+        <div id="check-wrapper">
+          <div class="check"></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
