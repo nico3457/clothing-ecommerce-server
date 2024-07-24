@@ -1,4 +1,4 @@
-# tienda
+# clothing-ecommerce-server
  
 Tienda de ropa similar a ZARA hecha con el full stack (Mongoose, express, angular y nodeJS (MEAN)).
 
